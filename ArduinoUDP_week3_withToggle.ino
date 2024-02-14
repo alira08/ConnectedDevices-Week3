@@ -1,14 +1,14 @@
 #include <WiFiNINA.h>
 
 //be sure to remove WiFi network details before uploading this code!
-const char WIFI_SSID[] = "sandbox370"; //WiFi network name goes here
-const char WIFI_PASS[] = "+s0a+s03!2gether?"; //WiFi password goes here
+const char WIFI_SSID[] = "xxx"; //WiFi network name goes here
+const char WIFI_PASS[] = "xxx"; //WiFi password goes here
 
 WiFiUDP udpClient;
 
 //configure your WiFi information inside config.h file
 
-const char server[] = "10.23.11.12"; //local IP address of receiver device goes here
+const char server[] = "xxx"; //local IP address of receiver device goes here
 const int port = 4242; //desired port # goes here. Make sure the receiver is listening on the same port!
 
 //the port OTHER devices should use when sending to this one
