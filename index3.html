@@ -1,0 +1,68 @@
+<html>
+<head>
+    <title>Websocket Test</title>
+</head>
+<body>
+    <p>Below is a piece of text that can be modified by pressing any of the three buttons on my Arduino controller.</p>
+    <p>Toggle the red button to make the text size bigger.</p>
+    <p>Toggle the yellow button to change the text size color.</p>
+    <p>Toggle the green button to change the text font from Arial to Comic Sans xD!!!!</p>
+    <p>Twist the Potentiometer to change the size of the smiley face.</p>
+    <p id="socket_data" text-align="CENTER">THIS IS THE TEXT TO BE MODIFIED</p>
+
+    <p id="socket_data2">:)</p>
+    
+<script>
+    
+    const socket = new WebSocket("ws://localhost:1880/mainpage")
+    socket.addEventListener("open", handleSocketOpen);    
+    socket.addEventListener("message", handleSocketMessage);
+
+    // Store the default text separately
+    var defaultText = "MODIFIED TEXT";
+
+    function handleSocketOpen(){
+        //document.body.style.backgroundColor = "green";
+    }
+        
+    function handleSocketMessage(event){
+        //document.body.style.backgroundColor = "yellow";
+        var receivedData = event.data;
+
+        // Check if the received data is a potentiometer value or not
+        
+        
+        if (!isNaN(receivedData)) {
+            document.getElementById("socket_data2").style.fontSize = "" + event.data + "px";
+        } else {
+            // Button press received, update the default text based on the button pressed
+            if (receivedData === "Button1Pressed") {
+                // Button 1 pressed, change text size
+                document.getElementById("socket_data").style.fontSize = "40px";
+            } else if (receivedData === "Button1NotPressed"){
+                document.getElementById("socket_data").style.fontSize = "20px";
+            }
+            
+            if (receivedData === "Button2Pressed") {
+                // Button 2 pressed, change text color
+                document.getElementById("socket_data").style.color = "blue";
+            } else if(receivedData === "Button2NotPressed"){
+                document.getElementById("socket_data").style.color = "black";
+            }
+            
+            if (receivedData === "Button3Pressed") {
+                // Button 3 pressed, change font family
+                document.getElementById("socket_data").style.fontFamily = "Comic Sans MS";
+            } else if (receivedData === "Button3NotPressed"){
+                document.getElementById("socket_data").style.fontFamily = "Arial";
+            }
+        }
+    }
+
+    function handleSocketClose(){
+        document.body.style.backgroundColor = "red";
+    }
+</script>
+
+</body>
+</html>

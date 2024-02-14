@@ -1,0 +1,200 @@
+[
+    {
+        "id": "001c0c4586d97998",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5c6bcafe3a00a148",
+        "type": "tcp in",
+        "z": "001c0c4586d97998",
+        "d": true,
+        "name": "",
+        "server": "server",
+        "host": "",
+        "port": "4242",
+        "datamode": "stream",
+        "datatype": "utf8",
+        "newline": "\\r\\n",
+        "topic": "",
+        "trim": false,
+        "base64": false,
+        "tls": "",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "b964874d564a9252"
+            ]
+        ]
+    },
+    {
+        "id": "99bf2544ed8061ca",
+        "type": "websocket out",
+        "z": "001c0c4586d97998",
+        "name": "",
+        "server": "ac4803508b5a07bf",
+        "client": "",
+        "x": 580,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "13068a6c6b5e77cc",
+        "type": "file",
+        "z": "001c0c4586d97998",
+        "d": true,
+        "name": "Write to text file",
+        "filename": "/Users/andrelira/Dropbox (Personal)/NYU/Connected Devices/NodeRed_Week3Test.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 680,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b964874d564a9252",
+        "type": "function",
+        "z": "001c0c4586d97998",
+        "name": "function 1",
+        "func": "msg.payload = new Date().toString() + \" - \" + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 380,
+        "wires": [
+            [
+                "c12f870b0e4be0d9"
+            ]
+        ]
+    },
+    {
+        "id": "176dd672c1c7d98a",
+        "type": "udp in",
+        "z": "001c0c4586d97998",
+        "name": "",
+        "iface": "",
+        "port": "4242",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "utf8",
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "bccdc4bed51d0996",
+                "99bf2544ed8061ca",
+                "b964874d564a9252"
+            ]
+        ]
+    },
+    {
+        "id": "bccdc4bed51d0996",
+        "type": "debug",
+        "z": "001c0c4586d97998",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c12f870b0e4be0d9",
+        "type": "change",
+        "z": "001c0c4586d97998",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Button1Pressed",
+                "fromt": "str",
+                "to": "Button 1 - Pressed",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Button1NotPressed",
+                "fromt": "str",
+                "to": "Button 1 - Not Pressed",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Button2Pressed",
+                "fromt": "str",
+                "to": "Button 2 - Pressed",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Button2NotPressed",
+                "fromt": "str",
+                "to": "Button 2 - Not Pressed",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Button3Pressed",
+                "fromt": "str",
+                "to": "Button 3 - Pressed",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "Button3NotPressed",
+                "fromt": "str",
+                "to": "Button 3 - Not Pressed",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 380,
+        "wires": [
+            [
+                "13068a6c6b5e77cc"
+            ]
+        ]
+    },
+    {
+        "id": "ac4803508b5a07bf",
+        "type": "websocket-listener",
+        "path": "/mainpage",
+        "wholemsg": "false"
+    }
+]
